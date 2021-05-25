@@ -20,10 +20,15 @@ async function getIncidence(inputData) {
         incidenceDate = new Date(incidenceDate).toLocaleDateString('de');
         document.getElementById('incidence_date').innerText = "Stand: " + incidenceDate;
         
+        const hands = ['👆🏻', '👆🏼', '👆🏽', '👆🏾', '👆🏿'];
+
         if(incidenceNr < 50) {
             document.getElementById('incidence_icon').classList.remove('wave');
             document.getElementById('incidence_icon').classList.add('bounce');
             document.getElementById('incidence_icon').innerText = '⚽';
+        } else {
+            document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+            console.log(Number(Math.floor(Math.random() * hands.length).toFixed(1)));
         }
     });
 }
