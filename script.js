@@ -13,7 +13,6 @@ async function getIncidence(inputData) {
             incidenceDate = Date.parse(response.data['09563'].history[i]['date']);
             if(incidence >= 100) playable = false;
         }
-        let incidenceNr = incidence;
         incidence = Number(incidence).toFixed(1).replace('.', ',');
         document.getElementById('incidence').innerText = incidence;
 
