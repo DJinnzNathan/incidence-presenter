@@ -6,13 +6,17 @@ async function getIncidence(inputData) {
     fetch(inputData)
     .then(response => response.json())
     .then(response => {
-        let incidence = response.data['09563'].history[0]['weekIncidence'];
+        let incidence, incidenceDate = 0;
+        for(let i = 0; i < response.data['09563'].history.length; i++) {
+            incidence = response.data['09563'].history[i]['weekIncidence'];
+            incidenceDate = Date.parse(response.data['09563'].history[i]['date']);
+            console.log(incidence);
+            console.log(incidenceDate);
+        }
         let incidenceNr = incidence;
-        console.log(incidence);
         incidence = Number(incidence).toFixed(1).replace('.', ',');
         document.getElementById('incidence').innerText = incidence;
 
-        let incidenceDate = Date.parse(response.data['09563'].history[0]['date']);
         incidenceDate = new Date(incidenceDate).toLocaleDateString('de');
         document.getElementById('incidence_date').innerText = "Stand: " + incidenceDate;
         

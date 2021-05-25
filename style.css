@@ -45,7 +45,7 @@ sup #incidence-source {
 .wave {
     animation-name           : wave-animation;
     /* Refers to the name of your @keyframes element below */
-    animation-duration       : 2.5s;
+    animation-duration       : 1.5s;
     /* Change to speed up or slow down */
     animation-iteration-count: infinite;
     /* Never stop waving     :) */
@@ -60,7 +60,7 @@ sup #incidence-source {
     }
 
     10% {
-        transform: rotate(14.0deg)
+        transform: rotate(27.0deg)
     }
 
     /* The following five values can be played with to make the waving more or less extreme */
@@ -69,7 +69,7 @@ sup #incidence-source {
     }
 
     30% {
-        transform: rotate(14.0deg)
+        transform: rotate(22.0deg)
     }
 
     40% {
