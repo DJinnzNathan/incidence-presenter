@@ -10,8 +10,6 @@ async function getIncidence(inputData) {
         for(let i = 0; i < response.data['09563'].history.length; i++) {
             incidence = response.data['09563'].history[i]['weekIncidence'];
             incidenceDate = Date.parse(response.data['09563'].history[i]['date']);
-            console.log(incidence);
-            console.log(incidenceDate);
         }
         let incidenceNr = incidence;
         incidence = Number(incidence).toFixed(1).replace('.', ',');
@@ -28,7 +26,6 @@ async function getIncidence(inputData) {
             document.getElementById('incidence_icon').innerText = '⚽';
         } else {
             document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
-            console.log(Number(Math.floor(Math.random() * hands.length).toFixed(1)));
         }
     });
 }
