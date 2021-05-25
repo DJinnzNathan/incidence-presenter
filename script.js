@@ -11,6 +11,10 @@ async function getIncidence(inputData) {
 
             updateIncidenceValues(history);
             updatePlayableIcon(history);
+        })
+        .catch((error) => {
+            console.error('Fehler:', error);
+            removeIncidenceValues();
         });
 }
 
@@ -30,4 +34,8 @@ function updatePlayableIcon(history) {
             break;
         }
     }
+}
+
+function removeIncidenceValues() {
+    document.getElementById('incidence-box').remove();
 }
