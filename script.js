@@ -1,4 +1,4 @@
-const API = "https://api.corona-zahlen.org/districts/09563/history/incidence/1";
+const API = "https://api.corona-zahlen.org/districts/09563/history/incidence/2";
 
 getIncidence(API);
 
