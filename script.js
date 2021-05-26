@@ -1,22 +1,18 @@
 const API = "https://api.corona-zahlen.org/districts/09563/history/incidence/5";
 const hands = ['👆🏻', '👆🏼', '👆🏽', '👆🏾', '👆🏿'];
 
-getIncidence(API);
+fetch(API)
+    .then(response => response.json())
+    .then(response => {
+        const history = response.data['09563'].history;
 
-async function getIncidence(inputData) {
-    fetch(inputData)
-        .then(response => response.json())
-        .then(response => {
-            const history = response.data['09563'].history;
-
-            updateIncidenceValues(history);
-            updatePlayableIcon(history);
-        })
-        .catch((error) => {
-            console.error('Fehler:', error);
-            removeIncidenceValues();
-        });
-}
+        updateIncidenceValues(history);
+        updatePlayableIcon(history);
+    })
+    .catch((error) => {
+        console.error('Fehler:', error);
+        removeIncidenceValues();
+    });
 
 function updateIncidenceValues(history) {
     const incidence = Number(history[history.length - 1]['weekIncidence']).toFixed(1).replace('.', ',');
