@@ -69,3 +69,24 @@ function getAPI() {
 function setCityName(name) {
     document.getElementById('incidence-box').dataset.cityName = name;
 }
+
+/**
+ * Translates the text from English to the defined target language.
+ * 
+ * @param {*} text the text to be translated, must be in English
+ * @param {*} targetLang the target language as a country domain code, i.e. Germany = de
+ */
+async function translate(text, targetLang) {
+    if (targetLang != 'en') {
+        const res = await fetch("https://libretranslate.com/translate", {
+            method: "POST",
+            body: JSON.stringify({
+                q: text,
+                source: 'en',
+                target: targetLang
+            }),
+            headers: { "Content-Type": "application/json" }
+        });
+        console.log(await res.json());
+    }
+}
