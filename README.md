@@ -1,11 +1,11 @@
 # COVID incidence-presenter for Germany
 This simple script presents the incidence of a certain city in Germany on a webpage. The API being used is from @marlon360.
 
-##Motivation
+## Motivation  
 For finally doing sports, we had to wait and watch the incidence fall and hold above a certain threshold. 
 To present the recent status on the clubs webpage, I've written this simple script, which receives data from an API by @marlon360. 
 
-## Usage
+## Usage  
 In order to use this script onto your webpage, first upload and include the **script.js** (*and style.css*) in the `<head>` of your HTML.
 
 `<script src="https://denade-media.com/files/incidence/script.js" defer></script>` *Change the src-URL, if you store the script in your own server.*
