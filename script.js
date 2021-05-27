@@ -62,6 +62,7 @@ function updatePlayableIcon(history) {
             document.getElementById('incidence_icon').classList.add('wave');
             document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
             updateTitle('incidence_icon', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
+            updateTitle('incidence', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
             break;
         }
     }
