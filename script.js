@@ -1,19 +1,20 @@
-const API = "https://api.corona-zahlen.org/districts/09563/history/incidence/5";
 const hands = ['👆🏻', '👆🏼', '👆🏽', '👆🏾', '👆🏿'];
 const mbokkeh = ['👌🏻', '👌🏼', '👌🏽', '👌🏾', '👌🏿'];
 
-fetch(API)
+fetch(getAPI())
     .then(response => response.json())
     .then(response => {
-        const history = response.data['09563'].history;
+        const responseData = response.data[getCityCode()];
 
-        updateIncidenceValues(history);
-        updatePlayableIcon(history);
+        updateIncidenceValues(responseData.history);
+        updatePlayableIcon(responseData.history);
+        setCityName(responseData.name);
     })
     .catch((error) => {
         console.error('Fehler:', error);
         removeIncidenceValues();
     });
+
 /**
  * Parses the last and recent item of the incidence values and presents it in a div.
  * 
@@ -34,9 +35,10 @@ function updateIncidenceValues(history) {
      * Updates the icon depending on incidence number.
      *
      * This function checks the incidence and determines, whether playing contact sport is possible or not.
-     * If one of the incidence values of the last 5 days is higher than 100, contact sport is not possible, else it is possible when vaccinated or tested.
+     * If one of the incidence values of the last 5 days is higher than 100, contact sport is not possible, else it is possible when tested the same day or vaccinated.
      * 
-     * TODO: If the incidence of the last 5 days is under 50, then contact sport is possible without restrictions. 
+     * TODO: If the incidence of the last 5 days is under 50, then contact sport is possible without any restrictions. Shows then the mbokkeh emoji next to the bouncing ball.
+     * ball and bokeh from beginning in html and delete, when rule is hurt; new span bc of animation class;
      * 
      * @param {*} history the json from the API
      */
@@ -50,8 +52,20 @@ function updatePlayableIcon(history) {
     }
 }
 /**
- * Removes the area, so no information is displayed. 
+ * Removes the area, i.e. when an incidence number cannot be shown.
  */
 function removeIncidenceValues() {
     document.getElementById('incidence-box').remove();
+}
+
+function getCityCode() {
+    return document.getElementById('incidence-box').dataset.cityCode;
+}
+
+function getAPI() {
+    return "https://api.corona-zahlen.org/districts/" + getCityCode() + "/history/incidence/5";
+}
+
+function setCityName(name) {
+    document.getElementById('incidence-box').dataset.cityName = name;
 }
