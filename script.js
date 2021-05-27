@@ -8,13 +8,14 @@ fetch(getAPI())
     .then(response => {
         const responseData = response.data[getCityCode()];
 
-        updateIncidenceValues(responseData.history);
+        updateIncidenceNumber(responseData.history);
+        updateIncidenceDate(responseData.history);
         updatePlayableIcon(responseData.history);
         setCityName(responseData.name);
     })
     .catch((error) => {
         console.error('Fehler:', error);
-        removeIncidenceValues();
+        clearaIncidenceBox();
     });
 
 /**
@@ -25,10 +26,19 @@ fetch(getAPI())
  * 
  * @param {*} history the json from the API
  */
-function updateIncidenceValues(history) {
+function updateIncidenceNumber(history) {
     const incidence = Number(history[history.length - 1]['weekIncidence']).toFixed(1).replace('.', ',');
     document.getElementById('incidence').innerText = incidence;
+}
 
+/**
+ * Parses the date of the incidence values and presents it in a div.
+ *
+ * The date of the given incidence value is being changed to German locale standard and printed to a specific id.
+ * 
+ * @param {*} history the json from the API
+ */
+function updateIncidenceDate(history) {
     const incidenceDate = new Date(history[history.length - 1]['date']).toLocaleDateString('de');
     document.getElementById('incidence_date').innerText = "Stand: " + incidenceDate;
 }
@@ -46,9 +56,12 @@ function updateIncidenceValues(history) {
      */
 function updatePlayableIcon(history) {
     for (let i = 0; i < history.length; i++) {
-        if (history[i] >= 100) {
+        if (history[i].weekIncidence >= 100) {
+            console.log("here");
+            document.getElementById('incidence_icon').classList.remove('bounce');
             document.getElementById('incidence_icon').classList.add('wave');
             document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+            updateTitle('incidence_icon', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
             break;
         }
     }
@@ -56,7 +69,7 @@ function updatePlayableIcon(history) {
 /**
  * Removes the area, i.e. when an incidence number cannot be shown.
  */
-function removeIncidenceValues() {
+function clearIncidenceBox() {
     document.getElementById('incidence-box').remove();
 }
 
@@ -70,6 +83,10 @@ function getAPI() {
 
 function setCityName(name) {
     document.getElementById('incidence-box').dataset.cityName = name;
+}
+
+function updateTitle(id, msg) {
+    document.getElementById(id).title = msg;
 }
 
 /**
