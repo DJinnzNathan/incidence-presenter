@@ -1,6 +1,8 @@
 const hands = ['👆🏻', '👆🏼', '👆🏽', '👆🏾', '👆🏿'];
 const mbokkeh = ['👌🏻', '👌🏼', '👌🏽', '👌🏾', '👌🏿'];
 
+console.info('This script is using the API of Marlon Lückert. (https://api.corona-zahlen.org)');
+
 fetch(getAPI())
     .then(response => response.json())
     .then(response => {
