@@ -19,10 +19,10 @@ If you want to test things out, here is my style.css:
 Then, insert this code at the desired place:
 
 ```HTML
-<div id="incidence-box" data-city-code="CITY_ID" data-city-name="">
+<div id="incidence-box" title="" data-city-code="CITY_ID" data-city-name="">
         7-Tage-Inzidenz:
         <span id="incidence"></span>
-        <span class="bounce" id="incidence_icon">⚽</span>
+        <span class="bounce" id="incidence_icon">⚽</span><span id="incidence_icon_clear"></span>
         <div>
             <span id="incidence_date"></span>
             <sup>
