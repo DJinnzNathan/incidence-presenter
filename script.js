@@ -48,30 +48,48 @@ function updateIncidenceDate(history) {
      *
      * This function checks the incidence and determines, whether playing contact sport is possible or not.
      * If one of the incidence values of the last 5 days is higher than 100, contact sport is not possible, else it is possible when tested the same day or vaccinated.
-     * 
-     * TODO: If the incidence of the last 5 days is under 50, then contact sport is possible without any restrictions. Shows then the mbokkeh emoji next to the bouncing ball.
-     * ball and bokeh from beginning in html and delete, when rule is hurt; new span bc of animation class;
-     * 
+     * If the incidence of the last 5 days is under 50, then contact sport is possible without any restrictions. Shows then the mbokkeh emoji next to the bouncing ball.
+     *  
      * @param {*} history the json from the API
      */
 function updatePlayableIcon(history) {
+    let incidenceUnder100 = true;
+    let incidenceUnder50 = true;
     for (let i = 0; i < history.length; i++) {
+        if (history[i].weekIncidence > 50) {
+            incidenceUnder50 = false;
+        }
         if (history[i].weekIncidence >= 100) {
-            console.log("here");
-            document.getElementById('incidence_icon').classList.remove('bounce');
-            document.getElementById('incidence_icon').classList.add('wave');
-            document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
-            updateTitle('incidence_icon', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
-            updateTitle('incidence', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
+            incidenceUnder100 = false;
             break;
         }
+        console.log(history[i].weekIncidence + ': ' + incidenceUnder100 + ' ' + incidenceUnder50);
     }
+    updateIconElement(incidenceUnder100, incidenceUnder50);
 }
 /**
  * Removes the area, i.e. when an incidence number cannot be shown.
  */
 function clearIncidenceBox() {
     document.getElementById('incidence-box').remove();
+}
+
+function updateIconElement(isUnder100, isUnder50) {
+    if (isUnder100 === false) {
+        console.log("over 100");
+        document.getElementById('incidence_icon').classList.remove('bounce');
+        document.getElementById('incidence_icon').classList.add('wave');
+        document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+        updateTitle('incidence-box', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
+    } else if (isUnder100 === true && isUnder50 === false) {
+        console.log("under 100");
+        updateTitle('incidence-box', 'Kontaktsport von 25 Personen mit Testnachweis, Immunität oder Impfung möglich');
+    } else {
+        console.log("under 50");
+        document.getElementById('incidence_icon_clear').innerText = mbokkeh[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+        updateTitle('incidence-box', 'Kontaktsport ohne Einschränkung möglich');
+    }
+
 }
 
 function getCityCode() {
