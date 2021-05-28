@@ -1,4 +1,4 @@
-[![Try it out](https://staticfiles.djinnznathan.com/incidence/)] [![API by @marlon360](https://github.com/marlon360)]
+[![Try it out]](https://staticfiles.djinnznathan.com/incidence/) [![API by @marlon360]](https://github.com/marlon360)
 
 # COVID incidence-presenter for Germany
 This simple script presents the incidence of a certain city in Germany on a webpage. The API being used is from @marlon360.
