@@ -1,4 +1,4 @@
-[![Try it out]](https://staticfiles.djinnznathan.com/incidence/) [![API by @marlon360]](https://github.com/marlon360)
+[![Try it out](https://img.shields.io/badge/Try%20it-online-blue)](https://staticfiles.djinnznathan.com/incidence/) [![GitHub issues](https://img.shields.io/github/issues/DJinnzNathan/incidence-presenter)](https://github.com/DJinnzNathan/incidence-presenter/issues) ![GitHub last commit](https://img.shields.io/github/last-commit/DJinnzNathan/incidence-presenter)
 
 # COVID incidence-presenter for Germany
 This simple script presents the incidence of a certain city in Germany on a webpage. The API being used is from @marlon360.
