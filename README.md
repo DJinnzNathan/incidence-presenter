@@ -1,3 +1,5 @@
+[![Try it out](https://staticfiles.djinnznathan.com/incidence/)] [![API by @marlon360](https://github.com/marlon360)]
+
 # COVID incidence-presenter for Germany
 This simple script presents the incidence of a certain city in Germany on a webpage. The API being used is from @marlon360.
 
@@ -8,11 +10,11 @@ To present the recent status on the clubs webpage, I've written this simple scri
 ## Usage  
 In order to use this script onto your webpage, first upload and include the **script.js** (*and style.css*) in the `<head>` of your HTML.
 
-`<script src="https://denade-media.com/files/incidence/script.js" defer></script>` *Change the src-URL, if you store the script in your own server.*
+`<script src="https://staticfiles.djinnznathan.com/incidence/script.js" defer></script>` *Change the src-URL, if you store the script in your own server.*
 
 Same applies to your style.css: 
 
-`<link rel="stylesheet" href="https://denade-media.com/files/incidence/style.css">`
+`<link rel="stylesheet" href="https://staticfiles.djinnznathan.com/incidence/style.css">`
 
 Then, insert this code at the desired place:
 
