@@ -12,7 +12,7 @@ In order to use this script onto your webpage, first upload and include the **sc
 
 `<script src="https://staticfiles.djinnznathan.com/incidence/script.js" defer></script>` *Change the src-URL, if you store the script in your own server.*
 
-Same applies to your style.css: 
+If you want to test things out, here is my style.css: 
 
 `<link rel="stylesheet" href="https://staticfiles.djinnznathan.com/incidence/style.css">`
 
