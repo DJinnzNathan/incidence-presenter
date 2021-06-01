@@ -1,5 +1,6 @@
 const hands = ['👆🏻', '👆🏼', '👆🏽', '👆🏾', '👆🏿'];
 const mbokkeh = ['👌🏻', '👌🏼', '👌🏽', '👌🏾', '👌🏿'];
+const ball = '⚽';
 
 console.info('This script is using the API of Marlon Lückert. (https://api.corona-zahlen.org)');
 
@@ -77,27 +78,48 @@ function clearIncidenceBox() {
 function updateIconElement(isUnder100, isUnder50) {
     if (isUnder100 === false) {
         console.log("over 100");
-        document.getElementById('incidence_icon').classList.remove('bounce');
-        document.getElementById('incidence_icon').classList.add('wave');
-        document.getElementById('incidence_icon').innerText = hands[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+        addClass('incidence_icon', 'wave');
+        updateText('incidence_icon', getRandomIcon(hands));
         updateTitle('incidence-box', 'Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich');
     } else if (isUnder100 === true && isUnder50 === false) {
         console.log("under 100");
+        addClass('incidence_icon', 'bounce');
+        updateText('incidence_icon', ball);
         updateTitle('incidence-box', 'Kontaktsport von 25 Personen mit Testnachweis, Immunität oder Impfung möglich');
     } else {
         console.log("under 50");
-        document.getElementById('incidence_icon_clear').innerText = mbokkeh[Number(Math.floor(Math.random() * hands.length).toFixed(1))];
+        addClass('incidence_icon', 'bounce');
+        updateText('incidence_icon', ball);
+        updateText('incidence_icon_clear', getRandomIcon(mbokkeh));
         updateTitle('incidence-box', 'Kontaktsport ohne Einschränkung möglich');
     }
 
+}
+
+function addClass(id, className) {
+    document.getElementById(id).classList.add(className);
+}
+/**
+ * Not in use, may be removed ;)
+ */
+function removeClass(id, className) {
+    document.getElementById(id).classList.remove(className);
 }
 
 function getCityCode() {
     return document.getElementById('incidence-box').dataset.cityCode;
 }
 
+function getIncidenceDays() {
+    return document.getElementById('incidence-box').dataset.incidenceDays;
+}
+
 function getAPI() {
-    return "https://api.corona-zahlen.org/districts/" + getCityCode() + "/history/incidence/5";
+    return "https://api.corona-zahlen.org/districts/" + getCityCode() + "/history/incidence/" + getIncidenceDays();
+}
+
+function getRandomIcon(iconset) {
+    return iconset[Number(Math.floor(Math.random() * iconset.length).toFixed(1))];
 }
 
 function setCityName(name) {
@@ -108,23 +130,6 @@ function updateTitle(id, msg) {
     document.getElementById(id).title = msg;
 }
 
-/**
- * Translates the text from English to the defined target language.
- * 
- * @param {*} text the text to be translated, must be in English
- * @param {*} targetLang the target language as a country domain code, i.e. Germany = de
- */
-async function translate(text, targetLang) {
-    if (targetLang != 'en') {
-        const res = await fetch("https://libretranslate.com/translate", {
-            method: "POST",
-            body: JSON.stringify({
-                q: text,
-                source: 'en',
-                target: targetLang
-            }),
-            headers: { "Content-Type": "application/json" }
-        });
-        console.log(await res.json());
-    }
+function updateText(id, msg) {
+    document.getElementById(id).innerText = msg;
 }
