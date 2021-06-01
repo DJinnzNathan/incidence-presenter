@@ -33,7 +33,7 @@ function updateIncidenceNumber(history) {
   const incidence = Number(history[history.length - 1]["weekIncidence"])
     .toFixed(1)
     .replace(".", ",");
-  document.getElementById("incidence").innerText = incidence;
+  updateText("incidence", incidence);
 }
 
 /**
@@ -61,57 +61,23 @@ function updateIncidenceDate(history) {
  * @param {*} history the json from the API
  */
 function updatePlayableIcon(history) {
-  let incidenceUnder100 = true;
-  let incidenceUnder50 = true;
+  updateIcon("incidence_icon", "bounce", ball, "Kontaktsport ohne Einschränkung möglich");
+  updateText("incidence_icon_clear", getRandomIcon(mbokkeh));
   for (let i = 0; i < history.length; i++) {
-    if (history[i].weekIncidence > 50) {
-      incidenceUnder50 = false;
+    if (history[i].weekIncidence > 50 || history[i].weekIncidence < 100) {
+      if (document.getElementById("incidence_icon") !== null) {
+        removeIcons("incidence_icon");
+      }
+      updateIcon("incidence_icon", "bounce", ball, "Kontaktsport von 25 Personen mit Testnachweis, Immunität oder Impfung möglich");
     }
     if (history[i].weekIncidence >= 100) {
-      incidenceUnder100 = false;
-      break;
-    }
-    console.log(
-      history[i].weekIncidence +
-        ": " +
-        incidenceUnder100 +
-        " " +
-        incidenceUnder50
-    );
-  }
-  updateIconElement(incidenceUnder100, incidenceUnder50);
-}
-/**
- * Removes the area, i.e. when an incidence number cannot be shown.
- */
-function clearIncidenceBox() {
-  document.getElementById("incidence-box").remove();
-}
+      if (document.getElementById("incidence_icon") !== null) {
+        removeIcons("incidence_icon");
 
-function updateIconElement(isUnder100, isUnder50) {
-  if (isUnder100 === false) {
-    updateIcon(
-      "incidence_icon",
-      "wave",
-      getRandomIcon(hands),
-      "Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich"
-    );
-  } else if (isUnder100 === true && isUnder50 === false) {
-    updateIcon(
-      "incidence_icon",
-      "bounce",
-      ball,
-      "Kontaktsport von 25 Personen mit Testnachweis, Immunität oder Impfung möglich"
-    );
-  } else {
-    console.log("under 50");
-    updateIcon(
-      "incidence_icon",
-      "bounce",
-      ball,
-      "Kontaktsport ohne Einschränkung möglich"
-    );
-    updateText("incidence_icon_clear", getRandomIcon(mbokkeh));
+        
+      }
+      updateIcon("incidence_icon", "wave", getRandomIcon(hands), "Kontaktloser Sport mit 2 Personen aus 2 Haushalten möglich");
+    }
   }
 }
 
@@ -132,11 +98,30 @@ function updateIcon(id, className, icon, msg) {
 function addClass(id, className) {
   document.getElementById(id).classList.add(className);
 }
+
+function removeIcons() {
+  removeClass("incidence_icon", className);
+  if (document.getElementById("incidence_icon") !== null) {
+    removeText("incidence_icon");
+  }
+}
+
 /**
  * Not in use, may be removed ;)
  */
 function removeClass(id, className) {
   document.getElementById(id).classList.remove(className);
+}
+
+function removeText(id) {
+  document.getElementById(id).remove();
+}
+
+/**
+ * Removes the complete area.
+ */
+function clearIncidenceBox() {
+  document.getElementById("incidence-box").remove();
 }
 
 function getCityCode() {
